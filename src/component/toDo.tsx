@@ -10,7 +10,7 @@ export const ToDo: React.FC = () => {
 	return (
 		<div className='task'>
 			<div className='titleTask'>To do</div>
-			<div className='blockTask'>
+			<div className='blockTask' style={{ gap: '10px' }}>
 				{issuesSelector.map((item: any) => (
 					<IssueeItem key={item.id} item={item} />
 				))}

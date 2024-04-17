@@ -3,9 +3,7 @@ import { Container } from 'react-bootstrap'; // Імпортуємо конте�
 import './App.css';
 
 import { InputURL } from './component/InputURL.tsx';
-import { ToDo } from './component/toDo.tsx';
-import { InProgress } from './component/InProgress.tsx';
-import { Done } from './component/Done.tsx';
+import { Board } from './component/Board.tsx';
 
 function App() {
 	return (
@@ -15,12 +13,13 @@ function App() {
 					To do List
 				</div>
 				<InputURL />
+				<Board />
 
-				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+				{/* <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
 					<ToDo />
 					<InProgress />
 					<Done />
-				</div>
+				</div> */}
 			</Container>
 		</div>
 	);

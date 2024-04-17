@@ -48,7 +48,7 @@ export const InputURL: React.FC = () => {
 		dispatch(fetchRepo({ owner: urlParts[3], repo: urlParts[4] }));
 	};
 
-	console.log(repoSelector.repo[0].stargazers_count);
+	// console.log(repoSelector.repo[0].stargazers_count);
 
 	return (
 		<>
