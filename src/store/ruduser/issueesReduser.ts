@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (param, thunkAPI) => {
+export const fetchIssues = createAsyncThunk('issues/fetchIssues', async (param: { owner: string; repo: string }, thunkAPI) => {
 	try {
-		const response = await axios.get(`https://api.github.com/repos/${param.owner}/${param.repo}/issues/2`);
+		const response = await axios.get(`https://api.github.com/repos/${param.owner}/${param.repo}/issues`);
 		return response.data;
 	} catch (error) {
 		throw new Error('Error fetching issues');
@@ -19,7 +19,9 @@ const issuesSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder.addCase(fetch);
+		builder.addCase(fetchIssues.fulfilled, (state, action) => {
+			state.issues = action.payload;
+		});
 	},
 });
 

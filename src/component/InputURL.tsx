@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import '../style/InputURL.model.css';
-import userEvent from '@testing-library/user-event';
+import { useDispatch } from 'react-redux';
+import { fetchIssues } from '../store/ruduser/issueesReduser.ts';
+// import { fetchIssues } from '../store/ruduser/issueesReduser';
 
 export const InputURL: React.FC = () => {
+	const dispatch = useDispatch();
 	const [url, setUrl] = useState<string>('');
 	const [userName, setUserName] = useState<string>('');
 	const [repo, setRepo] = useState<string>('');
@@ -29,6 +32,8 @@ export const InputURL: React.FC = () => {
 
 		setUserName(urlParts[3]);
 		setRepo(urlParts[4]);
+
+		dispatch(fetchIssues({ owner: urlParts[3], repo: urlParts[4] }));
 	};
 	return (
 		<>
