@@ -1,0 +1,9 @@
+.blockTask {
+	background-color: rgb(198, 198, 197);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.task {
+	width: 100%;
+}
