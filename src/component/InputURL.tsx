@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import '../style/InputURL.model.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchIssues } from '../store/ruduser/issueesReduser.ts';
-// import { fetchIssues } from '../store/ruduser/issueesReduser';
+import { fetchRepo } from '../store/ruduser/repoReduser.ts';
+import { RootState } from '../store/index.ts';
+
+// interface RepoState {
+// 	repo: {
+// 		stargazers_count: number;
+// 	};
+// }
 
 export const InputURL: React.FC = () => {
 	const dispatch = useDispatch();
+	// const issuesSelector = useSelector((state: RootState) => state.issues);
+	const repoSelector = useSelector((state: RootState) => state.repo) as any;
 	const [url, setUrl] = useState<string>('');
 	const [userName, setUserName] = useState<string>('');
 	const [repo, setRepo] = useState<string>('');
 	const [error, setError] = useState<string>('');
+
+	const star = repoSelector.repo[0].stargazers_count;
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.target.value);
@@ -34,7 +45,11 @@ export const InputURL: React.FC = () => {
 		setRepo(urlParts[4]);
 
 		dispatch(fetchIssues({ owner: urlParts[3], repo: urlParts[4] }));
+		dispatch(fetchRepo({ owner: urlParts[3], repo: urlParts[4] }));
 	};
+
+	console.log(repoSelector.repo[0].stargazers_count);
+
 	return (
 		<>
 			<Form style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -46,14 +61,18 @@ export const InputURL: React.FC = () => {
 					Load issues
 				</Button>
 			</Form>
-			<Form style={{ display: 'flex', alignItems: 'center' }}>
-				<div style={{ display: 'flex', alignItems: 'center' }}>
-					<div>{userName}</div>
-					<div>{'>'}</div>
-					<div>{repo}</div>
-				</div>
-				<div>194 K stars</div>
-			</Form>
+			{repoSelector.repo.length > 0 ? (
+				<Form style={{ display: 'flex', alignItems: 'center' }}>
+					<div style={{ display: 'flex', alignItems: 'center' }}>
+						<div>{userName}</div>
+						<div>{'>'}</div>
+						<div>{repo}</div>
+					</div>
+					<div style={{ marginLeft: '20px' }}>{star} K stars</div>
+				</Form>
+			) : (
+				<div></div>
+			)}
 		</>
 	);
 };
