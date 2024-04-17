@@ -3,6 +3,9 @@ import { Container } from 'react-bootstrap'; // Імпортуємо конте�
 import './App.css';
 
 import { InputURL } from './component/InputURL.tsx';
+import { ToDo } from './component/toDo.tsx';
+import { InProgress } from './component/InProgress.tsx';
+import { Done } from './component/Done.tsx';
 
 function App() {
 	return (
@@ -13,11 +16,11 @@ function App() {
 				</div>
 				<InputURL />
 
-				{/* <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+				<div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
 					<ToDo />
 					<InProgress />
 					<Done />
-				</div> */}
+				</div>
 			</Container>
 		</div>
 	);
