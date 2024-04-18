@@ -20,9 +20,10 @@ export const InputURL: React.FC = () => {
 	const [userName, setUserName] = useState<string>('');
 	const [repo, setRepo] = useState<string>('');
 	const [error, setError] = useState<string>('');
-
-	const star = repoSelector.repo[0].stargazers_count;
-
+	// let
+	// if (repoSelector) {
+	// 	const star = repoSelector.repo[0].stargazers_count;
+	// }
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUrl(e.target.value);
 	};
@@ -68,7 +69,7 @@ export const InputURL: React.FC = () => {
 						<div>{'>'}</div>
 						<div>{repo}</div>
 					</div>
-					<div style={{ marginLeft: '20px' }}>{star} K stars</div>
+					<div style={{ marginLeft: '20px' }}>{repoSelector.repo[0].stargazers_count} K stars</div>
 				</Form>
 			) : (
 				<div></div>
