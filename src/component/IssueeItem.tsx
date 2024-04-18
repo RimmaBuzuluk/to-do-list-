@@ -30,7 +30,7 @@ export const IssueeItem: React.FC<IssueeItemProps> = ({ item, setCurrentBoard, s
 		e.preventDefault();
 		if (e.currentTarget.classList.contains('item')) {
 			// e.currentTarget.style.boxShadow = '0 2px 3px gray';
-			e.currentTarget.style.background = 'red';
+			// e.currentTarget.style.background = 'red';
 		}
 	};
 
@@ -50,23 +50,15 @@ export const IssueeItem: React.FC<IssueeItemProps> = ({ item, setCurrentBoard, s
 
 	const dropHandler = (e: React.DragEvent<HTMLDivElement>, board: any, item: any) => {
 		e.preventDefault();
-		// console.log(board, item);
 		const currentIndex = currentBoard.items.indexOf(currentItem);
-		// console.log('curr ite', currentItem);
-		// console.log('curr', currentIndex);
-		// console.log('board1', currentBoard);
 		currentBoard.items.splice(currentIndex, 1);
-
-		// console.log('board2', currentBoard);
 		const dropIndex = board.items.indexOf(item);
-		// console.log('dr', dropIndex);
 		board.items.splice(dropIndex + 1, 0, currentItem);
-		// console.log(boarders);
 		setBoards([...boarders]);
 	};
 
 	return (
-		<Card style={{ width: '100%', border: '1px solid #000', background: '#fff' }} onDragOver={dragOverHandler} onDragLeave={dragLeaveHandler} onDragStart={dragStartHandler(board, item)} onDragEnd={dragEndHandler} onDrop={e => dropHandler(e, board, item)} className='item' draggable={true}>
+		<Card style={{ width: '100%', border: '1px solid #000', background: '#fff', marginTop: '10px' }} onDragOver={dragOverHandler} onDragLeave={dragLeaveHandler} onDragStart={dragStartHandler(board, item)} onDragEnd={dragEndHandler} onDrop={e => dropHandler(e, board, item)} className='item' draggable={true}>
 			<Card.Body>
 				<Card.Title>{item.title}</Card.Title>
 				<Card.Text>

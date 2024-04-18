@@ -65,9 +65,9 @@ export const Board: React.FC = () => {
 		}
 	}
 	return (
-		<div className='boards' style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+		<div className='boards' style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginTop: '20px' }}>
 			{boarders.map(board => (
-				<div key={board.id} className='board' onDragOver={e => dragOverCardHandler(e)} onDrop={e => dropCardHandler(e, board)} style={{ width: '100%', border: '1px solid #000', padding: '5px', background: 'pink' }}>
+				<div key={board.id} className='board' onDragOver={e => dragOverCardHandler(e)} onDrop={e => dropCardHandler(e, board)} style={{ width: '100%', border: '1px solid #000', padding: '5px' }}>
 					<div className='boarderName'>{board.title}</div>
 					<div className='boardItems' style={{ gap: '10px' }}>
 						{board.items.map((item: any) => (
