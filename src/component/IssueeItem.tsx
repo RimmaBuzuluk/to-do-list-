@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Card } from 'react-bootstrap';
 
+interface Board {
+	id: number;
+	title: string;
+	items: any[];
+}
+
 interface IssueeItemProps {
-	item: any;
-	setCurrentBoard: React.Dispatch<React.SetStateAction<any>>;
-	setCurrentItem: React.Dispatch<React.SetStateAction<any>>;
+	item: {
+		id: number;
+		title: string;
+		comments: number;
+		number: number;
+		author_association: string;
+		updated_at: string;
+	};
+	setCurrentBoard: Dispatch<SetStateAction<any>>;
+	setCurrentItem: Dispatch<SetStateAction<any>>;
 	currentItem: any;
-	currentBoard: any;
-	board: any;
-	setBoards: any;
-	boarders: any;
+	currentBoard: Board | null;
+	board: {
+		id: number;
+		title: string;
+		items: any[];
+	};
+	setBoards: Dispatch<SetStateAction<any>>;
+	boarders: any[];
 }
 
 export const IssueeItem: React.FC<IssueeItemProps> = ({ item, setCurrentBoard, setCurrentItem, currentBoard, currentItem, board, setBoards, boarders }) => {

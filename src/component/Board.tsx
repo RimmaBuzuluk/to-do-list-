@@ -1,34 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootState } from '../store/index.ts';
 import { useSelector } from 'react-redux';
 import { IssueeItem } from './IssueeItem.tsx';
 
 export const Board: React.FC = () => {
 	const issuesSelector = useSelector((state: RootState) => state.issues) as any;
-
-	const [boarders, setBoards] = useState([
+	const [boarders, setBoards] = useState<any[]>([
 		{
 			id: 1,
 			title: 'To Do',
-			items: [
-				{ id: 1, title: '1' },
-				{ id: 2, title: '2' },
-			],
+			items: issuesSelector.issues,
 		},
 		{
 			id: 2,
 			title: 'In Progress',
-			items: [
-				{ id: 3, title: '3' },
-				{ id: 4, title: '4' },
-				{ id: 5, title: '5' },
-				{ id: 6, title: '6' },
-			],
+			items: [],
 		},
-		{ id: 3, title: 'Done', items: [{ id: 7, title: '7' }] },
+		{ id: 3, title: 'Done', items: [] },
 	]);
-	const [currentBoard, setCurrentBoard] = useState(null);
-	const [currentItem, setCurrentItem] = useState(null);
+	const [currentBoard, setCurrentBoard] = useState<any>(null);
+	const [currentItem, setCurrentItem] = useState<any>(null);
+
+	useEffect(() => {
+		setBoards([
+			{
+				id: 1,
+				title: 'To Do',
+				items: issuesSelector.issues,
+			},
+			{
+				id: 2,
+				title: 'In Progress',
+				items: [],
+			},
+			{ id: 3, title: 'Done', items: [] },
+		]);
+	}, [issuesSelector]);
 
 	const dragOverCardHandler = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
@@ -38,30 +45,29 @@ export const Board: React.FC = () => {
 		}
 	};
 
-	// const dropCardHandler = (e: React.DragEvent<HTMLDivElement>, board: any) => {
-	// 	// if (currentBoard != null) {
-	// 	console.log(board);
-	// 	// board.items.push(currentItem);
-	// 	console.log(board);
-	// 	const currentIndex = currentBoard.items.indexOf(currentItem);
-	// 	console.log(currentBoard);
-	// 	if (currentIndex.length === 0) {
-	// 		board.items.push(currentItem);
-	// 	}
-	// 	// currentBoard.items.splice(currentIndex, 1);
-	// 	// setBoards([...boarders]);
-	// 	// }
-	// };
-
 	function dropCardHandler(e: React.DragEvent<HTMLDivElement>, board: any) {
-		console.log('curre', board.items.length);
+		if (currentBoard === null) {
+			return;
+		}
+
 		if (board.items.length === 0) {
-			board.items.push(currentItem);
+			const updatedBoardItems = [...board.items, currentItem];
 			const currentIndex = currentBoard.items.indexOf(currentItem);
 
-			currentBoard.items.splice(currentIndex, 1);
-			console.log(boarders);
-			setBoards([...boarders]);
+			const updatedCurrentBoardItems = [...currentBoard.items];
+			updatedCurrentBoardItems.splice(currentIndex, 1);
+
+			const updatedBoarders = boarders.map((b: any) => {
+				if (b.id === board.id) {
+					return { ...b, items: updatedBoardItems };
+				}
+				if (b.id === currentBoard.id) {
+					return { ...b, items: updatedCurrentBoardItems };
+				}
+				return b;
+			});
+
+			setBoards(updatedBoarders);
 		}
 	}
 	return (
